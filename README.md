@@ -1,4 +1,4 @@
-# atosone-CLI
+# atosone-cli
 A CLI tool for atosone.com, deploy your full-stack apps to the cloud
 
 ## Installation
