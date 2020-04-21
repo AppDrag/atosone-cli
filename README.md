@@ -4,7 +4,7 @@ A CLI tool for atosone.com, deploy your full-stack apps to the cloud
 ## Installation
 
 Install with 
-`npm install -g https://github.com/AppDrag/atosone-cli`
+`npm install -g atosone-cli`
 
 ## Commands
 
