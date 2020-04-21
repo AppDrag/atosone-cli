@@ -27,12 +27,13 @@ const funcs = {
       'command': 'Login',
       'email': inputs.email,
       'password': hashPassword,
-      'p': 214,
+      'whiteLabel': 214,
       'isWhiteLabel': 1
     }
     let data_cleaned = cli.DataToFormURL(data);
     let response_login = await cli.CallAPI(data_cleaned);
     if (!('status' in response_login)) {
+      console.log(response_login);
       console.log(chalk.redBright('Incorrect email and/or password'));
       return;
     }
