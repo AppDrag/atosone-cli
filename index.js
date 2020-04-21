@@ -27,7 +27,8 @@ const funcs = {
       'command': 'Login',
       'email': inputs.email,
       'password': hashPassword,
-      'p': 214
+      'p': 214,
+      'isWhiteLabel': 1
     }
     let data_cleaned = cli.DataToFormURL(data);
     let response_login = await cli.CallAPI(data_cleaned);
