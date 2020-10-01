@@ -30,7 +30,9 @@ const login = async () => {
   let data = new URLSearchParams({
     'command': 'Login',
     'email': inputs.email,
-    'password': hashPassword
+    'password': hashPassword,
+    'whiteLabel': 214,
+    'isWhiteLabel': 1
   });
   spinner.start();
   if (!await requestLogin(data)) {
