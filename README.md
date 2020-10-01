@@ -11,6 +11,25 @@ Install with
 atosone-cli v1.0.0
 
 Usage  : atosone-cli command <args>
+
+### Options list :
+ 
+   **-a [APPID]**
+   
+   Input your appId directly in the command line instead of using `init`.
+
+   **-t [TOKEN]**
+   
+   Input your token directly in the command line instead of using `login`.
+
+   **-i [SUFFIX]**
+   
+   (fs pull specific) Only pulls files with the specified suffix.
+
+   **-e [SUFFIX]**
+   
+   (fs pull specific) Exclude files with the specified suffix from bein pulled.')
+
    
 Available commands :
 
