@@ -619,6 +619,13 @@ const appConfigJson = (appId, funcJson, baseFolder, apiKey) => {
         "access-control-allow-origin": "*"
     },
     "uploadFolder": "public/uploads/",
+    "EmailProvider" : {
+      "address" : "127.0.0.1",
+      "port": 25,
+      "login" : null,
+      "password" : null,
+      "isSSL": false,
+    },
     "globalEnv" : {
       APPID: appId,
       APIKEY: apiKey
