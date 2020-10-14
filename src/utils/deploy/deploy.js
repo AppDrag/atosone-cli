@@ -51,16 +51,24 @@ let newFiles = await getDirectoryListing(token, appId, path);
 return newFiles;
 }
 
+//TODO: 1e128 files should be locally downloaded & hosted!
 const replaceLinks = (filePath, appId) => {
   if (fs.existsSync(filePath)) {
     let file_content = fs.readFileSync(filePath);
-    let regexp = new RegExp(`//s3-eu-west-1.amazonaws.com/dev.appdrag.com/${appId}/`,"g");
+    
+    let regexp0 = new RegExp(`https://s3-eu-west-1.amazonaws.com/dev.appdrag.com/${appId}/`,"g");
+    let regexp1 = new RegExp(`//s3-eu-west-1.amazonaws.com/dev.appdrag.com/${appId}/`,"g");
     let regexp2 = new RegExp(`https://cf.appdrag.com/${appId}/`,"g")
     let regexp3 = new RegExp(`//cf.appdrag.com/${appId}/`, "g");
     let regexp4 = new RegExp(`//s3-eu-west-1.amazonaws.com/dev.appdrag.com/resources/`,"g");
     let regexp5 = new RegExp('//cf.appdrag.com/resources/',"g");
+    let regexp6 = new RegExp(`https://${appId}.appdrag.com/`, "g");
+    let regexp7 = new RegExp(`https://${appId}.appdrag.site/`, "g");
+
     file_content = file_content.toString('utf-8');
-    file_content = file_content.replace(regexp, "./").replace(regexp2,'./').replace(regexp3,'./').replace(regexp4, './').replace(regexp5, './');
+    file_content = file_content.replace(regexp0, "./").replace(regexp1, "./").replace(regexp2,'./')
+    .replace(regexp3,'./').replace(regexp4, 'https://1e128.net/')
+    .replace(regexp5, 'https://1e128.net/').replace(regexp6, './').replace(regexp7, './');
     fs.writeFileSync(filePath, file_content);
     console.log(chalk.blue(`Replacing contents of ${filePath}`))
   }
@@ -609,12 +617,10 @@ const appConfigJson = (appId, funcJson, baseFolder, apiKey) => {
     "publicFolder": "./public",
     "TypeAPI": "LOCAL",
     "TypeFS": "LOCAL",
-    "redirect404toIndex": true,
-    "acceptedFiles": "*.jpg|*.png|*.mp4|*.zip|*.jpeg|*.pdf",
+    "redirect404toIndex": false,
+    "acceptedFiles": "*.jpg|*.png|*.mp4|*.zip|*.jpeg|*.pdf|*.docx|*.xlsx|*.pptx",
     "HSTS": false,
-    "rateLimiter" : {
-      "requestsPerSecond" : 10
-    },
+    "maxRequestsPerMinutePerIP": 120,
     "CORS": {
         "access-control-allow-origin": "*"
     },
@@ -627,8 +633,8 @@ const appConfigJson = (appId, funcJson, baseFolder, apiKey) => {
       "isSSL": false,
     },
     "globalEnv" : {
-      APPID: appId,
-      APIKEY: apiKey
+      "APPID": appId,
+      "APIKEY": apiKey
     },
     "db": {
       "MYSQL": {
@@ -673,20 +679,36 @@ const appConfigJson = (appId, funcJson, baseFolder, apiKey) => {
           isPrivate: func.isPrivate
       };
       if (func.envVars) {
-        object.apiEndpoints[`${pathToFunction}`].envVars = JSON.parse(func.envVars);
+            try{
+                object.apiEndpoints[`/api${pathToFunction}`].envVars = JSON.parse(func.envVars);
+            }
+            catch(ex){
+                console.log(ex);
+                console.log(pathToFunction);
+            }
       }
       if (func.type !== "SELECT" && func.type !== "UPDATE" && func.type !== "DELETE" && func.type !== "INSERT" && func.type.slice(0,3) !== 'SQL') {
-        delete object.apiEndpoints[`${pathToFunction}`].sourceCode;
-        delete object.apiEndpoints[`${pathToFunction}`].mappingColumns;
-        delete object.apiEndpoints[`${pathToFunction}`].outputColumns;
-        delete object.apiEndpoints[`${pathToFunction}`].orderByColumn;
-        delete object.apiEndpoints[`${pathToFunction}`].orderByDirection;
-        delete object.apiEndpoints[`${pathToFunction}`].tableName;
-        delete object.apiEndpoints[`${pathToFunction}`].whereConditions;
+        try{
+            delete object.apiEndpoints[`/api${pathToFunction}`].sourceCode;
+            delete object.apiEndpoints[`/api${pathToFunction}`].mappingColumns;
+            delete object.apiEndpoints[`/api${pathToFunction}`].outputColumns;
+            delete object.apiEndpoints[`/api${pathToFunction}`].orderByColumn;
+            delete object.apiEndpoints[`/api${pathToFunction}`].orderByDirection;
+            delete object.apiEndpoints[`/api${pathToFunction}`].tableName;
+            delete object.apiEndpoints[`/api${pathToFunction}`].whereConditions;
+        }
+        catch(ex){
+            console.log(ex);
+            console.log(func.type);
+            console.log(pathToFunction);
+        }
+        
       }
     });
   }
-  let toWrite = JSON.stringify(object);
+  //let toWrite = JSON.stringify(object);
+  let toWrite = JSON.stringify(object, null, 4);
+    
   fs.writeFileSync(`./${baseFolder}/appconfig.json`, toWrite);
   return;
 };
