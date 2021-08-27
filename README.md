@@ -8,7 +8,7 @@ Install with
 
 ## Commands
 
-atosone-cli v1.3.0
+atosone-cli v1.3.7
 
 Usage  : atosone-cli command <args>
 

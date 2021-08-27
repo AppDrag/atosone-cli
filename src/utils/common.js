@@ -89,7 +89,7 @@ const help = () => {
       'Atos'
     )
   );
-  console.log(chalk.underline('atosone-cli v1.3.0'));
+  console.log(chalk.underline('atosone-cli v1.3.7'));
   console.log(chalk.bold('Usage'), ': atosone-cli', chalk.yellow('command'), chalk.gray('<args>'), chalk.cyan('-options'));
   console.log(chalk.bold('\nOptions:'));
   console.log(chalk.cyan('-a [appId]'),': Input your appId directly in the command line instead of using', chalk.yellow('init'), '.');
@@ -97,7 +97,7 @@ const help = () => {
   console.log(chalk.cyan('-i [suffix]'),': (',chalk.yellow('fs pull'), 'specific) Only pulls files with the specified suffix.');
   console.log(chalk.cyan('-e [suffix]'),': (',chalk.yellow('fs pull'), 'specific) Exclude files with the specified suffix.');
   console.log(chalk.cyan('--skip-existing-files'),': (',chalk.yellow('fs pull'), 'specific) Skip files already existing in your filesystem.');
-  console.log(chalk.bold('Available commands:'));
+  console.log(chalk.bold('\nAvailable commands:'));
   console.log(chalk.blue('\n-- Setup'));
   console.log('  ', chalk.yellow('login'), '\t\t\t\t\tLogin to our service')
   console.log('  ', chalk.yellow('init'), '\t<app-id> \t\t\tLink folder with your app-id')
