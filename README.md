@@ -32,8 +32,8 @@ Usage  : atosone-cli command <args>
 
    (fs pull specific) Skip files already existing in your filesystem.
 
-   
-Available commands :
+ 
+### Available commands :
 
 
 ### Setup
