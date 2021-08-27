@@ -36,7 +36,13 @@ const downloadDb = async (appId, token) => {
     body: new URLSearchParams(data),
   };
   let databaseUrl = await fetch('https://api.appdrag.com/CloudBackend.aspx', opts);
-  databaseUrl = await databaseUrl.json();
+  databaseUrl = await databaseUrl.text(); // First convert the stream object to text
+  try {
+    databaseUrl = JSON.parse(databaseUrl);
+  } catch (e) {
+    console.log(chalk.yellow(`Error parsing server response to json, attempting to retrieve backup of DB`));
+    console.log(chalk.gray("Server response:",databaseUrl));
+  }
   if (databaseUrl.status !== 'OK') {
     await getAllDbVersions(appId, token);
     return;
