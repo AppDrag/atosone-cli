@@ -89,7 +89,7 @@ const help = () => {
       'Atos'
     )
   );
-  console.log(chalk.underline('atosone-cli v1.3.7'));
+  console.log(chalk.underline('atosone-cli'));
   console.log(chalk.bold('Usage'), ': atosone-cli', chalk.yellow('command'), chalk.gray('<args>'), chalk.cyan('-options'));
   console.log(chalk.bold('\nOptions:'));
   console.log(chalk.cyan('-a [appId]'),': Input your appId directly in the command line instead of using', chalk.yellow('init'), '.');
