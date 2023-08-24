@@ -1,7 +1,7 @@
 {
   "name": "atosone-cli",
   "bin": "./src/index.js",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "",
   "main": "src/index.js",
   "scripts": {
